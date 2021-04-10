@@ -33,6 +33,15 @@ namespace Todo.Backend.Controllers
 
             return CreatedAtAction(nameof(GetItemById), new { todoItemId = entity.Id }, entity.Id);
         }
+    
+        [HttpPut("{todoItemId}")]
+        public async Task<IActionResult> ChangeTodoItemTitle([FromRoute] Guid todoItemId, [FromBody] ChangeTodoItemTitleCommand changeTitleCommand, CancellationToken cancellationToken) 
+        { 
+          var item = await _todoItemContext.TodoItems.FirstOrDefaultAsync(i => i.Id == todoItemId);
+          item.Title = changeTitleCommand.Title;
+          await _todoItemContext.SaveChangesAsync();
+          return NoContent();
+        }
 
         [HttpGet("{todoItemId}")]
         public async Task<TodoItem> GetItemById([FromRoute] Guid todoItemId)
