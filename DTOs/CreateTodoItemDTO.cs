@@ -1,9 +1,9 @@
+using System;
+
 namespace Todo.Backend.DTOs
 {
-    public class CreateTodoItemCommand
+    public class CreateTodoItemDTO
     {
         public string Title { get; set; }
-    }
-
-    
+    }    
 }
