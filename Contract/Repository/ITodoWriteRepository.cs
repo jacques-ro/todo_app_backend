@@ -4,12 +4,11 @@ using Todo.Backend.Models;
 
 namespace Todo.Backend.Contract.Repository
 {
-    public interface ITodoRepository
+    /// <summary>
+    /// A write only repository to write todo items into a persistence storage
+    /// </summary>
+    public interface ITodoWriteRepository
     {
         void SaveAsync(TodoItem item);
-
-        IEnumerable<TodoItem> GetAllItems();
-
-        TodoItem GetItemById(Guid id);
     }
 }
