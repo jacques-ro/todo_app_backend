@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Todo.Backend.Models;
 
 namespace Todo.Backend.Contract.Repository
@@ -9,6 +11,9 @@ namespace Todo.Backend.Contract.Repository
     /// </summary>
     public interface ITodoWriteRepository
     {
-        void SaveAsync(TodoItem item);
+        Task AddAsync(TodoItem item, CancellationToken cancellationToken);
+        Task UpdateAsync(TodoItem item, CancellationToken cancellationToken);
+
+        Task DeleteAsync(TodoItem item, CancellationToken cancellationToken);
     }
 }
