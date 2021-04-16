@@ -1,0 +1,51 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+
+  pgadmin: 
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment: 
+      - PGADMIN_DEFAULT_EMAIL=local@admin.de
+      - PGADMIN_DEFAULT_PASSWORD=7UNSilS9Nvgdk0G6AEg0
+      - PGADMIN_DISABLE_POSTFIX=true
+      - PGADMIN_LISTEN_PORT=5050
+    volumes:
+      - pgadmin4:/var/lib/pgadmin 
+    ports: 
+      - "8080:5050"
+    networks:
+      - todo.postgres.network
+
+  db:
+    image: postgres
+    container_name: todo.postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: SqlAdmin100
+    ports:
+      - "5432:5432"
+    networks: 
+      - todo.postgres.network
+
+  backend:
+    image: backend
+    container_name: todo.backend
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on: 
+      - db
+    networks:
+      - todo.backend.network
+      - todo.postgres.network
+networks: 
+  todo.backend.network:    
+  todo.postgres.network:
+
+volumes: 
+  pgadmin4:
