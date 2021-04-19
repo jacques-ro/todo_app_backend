@@ -34,8 +34,13 @@ namespace backend
         {
             if(_configuration.GetValue<bool>("UseSqliteInMemoryDatabase"))
             {
-                services.AddDbContext<TodoItemContext>(options =>
+                services.AddDbContext<TodoItemContext>(options =>                    
                     options.UseSqlite(CreateSqliteInMemoryConnection())
+                );
+            } else
+            {
+                services.AddDbContext<TodoItemContext>(options =>
+                    options.UseNpgsql(_configuration.GetConnectionString("database"))                    
                 );
             }       
 
