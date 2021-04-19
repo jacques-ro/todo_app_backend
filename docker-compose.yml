@@ -24,7 +24,7 @@ services:
     container_name: todo.postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: SqlAdmin100
     ports:
       - "5432:5432"
     networks: 
