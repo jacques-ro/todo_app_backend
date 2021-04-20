@@ -18,11 +18,6 @@ namespace Todo.Backend.Persistence.Context
 
             modelBuilder.Entity<TodoItem>()
                 .HasKey(i => new {i.Id });
-
-            // TODO: clarify why the npgsql migration creates an integer field in the database schema although there is a bool type in postgres
-            modelBuilder.Entity<TodoItem>()
-                .Property(t => t.IsCompleted)                
-                .HasConversion<int>(); 
         }
     }
 }
