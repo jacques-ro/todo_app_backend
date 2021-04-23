@@ -37,6 +37,12 @@ namespace Todo.Backend.Persistence.Repository
         public async Task DeleteAsync(TodoItem item, CancellationToken cancellationToken)
         {
             var dbItem = await _dbContext.TodoItems.FirstOrDefaultAsync(i => i.Id == item.Id, cancellationToken);
+
+            if(dbItem == null)
+            {
+                return;
+            }
+            
             _dbContext.TodoItems.Remove(dbItem);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
