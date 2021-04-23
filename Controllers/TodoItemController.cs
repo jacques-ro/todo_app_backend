@@ -85,6 +85,15 @@ namespace Todo.Backend.Controllers
             return Ok(items);
         }      
 
+        [HttpPost("{todoItemId}/delete")]
+        public async Task<IActionResult> DeleteItemById([FromRoute] Guid todoItemId)
+        {
+            await _mediator.Send(
+                new DeleteTodoItemCommand() { Id = todoItemId }
+            );
+
+            return NoContent();
+        }
         
     }
 }
