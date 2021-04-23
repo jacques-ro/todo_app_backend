@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Todo.Backend.Contract.Repository;
 using Todo.Backend.Models;
@@ -21,15 +22,15 @@ namespace Todo.Backend.Persistence.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<TodoItem>> GetAllItems()
+        public async Task<IEnumerable<TodoItem>> GetAllItems(CancellationToken cancellationToken)
         {
-            var items = await _dbContext.TodoItems.ToListAsync();
+            var items = await _dbContext.TodoItems.ToListAsync(cancellationToken);
             return items.Select(i => mapEntityOrReturnNullIfNotExisting(i));
         }
 
-        public async Task<TodoItem> GetItemById(Guid id)
+        public async Task<TodoItem> GetItemById(Guid id, CancellationToken cancellationToken)
         {
-            var item = await _dbContext.TodoItems.FirstOrDefaultAsync(i => i.Id == id);
+            var item = await _dbContext.TodoItems.FirstOrDefaultAsync(i => i.Id == id, cancellationToken);
             return mapEntityOrReturnNullIfNotExisting(item);
         }
 

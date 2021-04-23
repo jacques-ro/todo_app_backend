@@ -24,7 +24,7 @@ namespace Todo.Backend.Commands
 
         public override async Task<Unit> Handle(ChangeTodoItemTitleCommand request, CancellationToken cancellationToken)
         {
-            var item = await _readRepository.GetItemById(request.Id);
+            var item = await _readRepository.GetItemById(request.Id, cancellationToken);
 
             if(item == null)
             {

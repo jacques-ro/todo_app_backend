@@ -16,7 +16,7 @@ namespace Todo.Backend.Queries
 
         public override async Task<TodoItem> Handle(GetTodoItemByIdQuery request, CancellationToken cancellationToken)
         {
-            return await Repository.GetItemById(request.Id);            
+            return await Repository.GetItemById(request.Id, cancellationToken);            
         }
     }
 }
