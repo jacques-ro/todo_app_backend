@@ -93,7 +93,6 @@ namespace Todo.Backend.Controllers
             );
 
             return NoContent();
-        }
-        
+        }        
     }
 }
