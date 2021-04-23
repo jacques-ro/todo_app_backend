@@ -1,7 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -39,7 +38,7 @@ namespace Todo.Backend.Controllers
             return CreatedAtAction(nameof(GetItemById), new { todoItemId = itemId }, itemId);
         }
     
-        [HttpPut("{todoItemId}")]
+        [HttpPost("{todoItemId}/changetitle")]
         public async Task<IActionResult> ChangeTodoItemTitle(
             [FromRoute] Guid todoItemId,
             [FromBody] ChangeTodoItemTitleDTO changeTitleDTO,
@@ -50,18 +49,42 @@ namespace Todo.Backend.Controllers
           return NoContent();
         }
 
-        [HttpGet("{todoItemId}")]
-        public async Task<TodoItem> GetItemById([FromRoute] Guid todoItemId)
+        [HttpPost("{todoItemId}/tickoff")]
+        public async Task<IActionResult> TickOffTodo(
+            [FromRoute] Guid todoItemId,
+            CancellationToken cancellationToken
+        )
         {
-            return await _mediator.Send(
+            await _mediator.Send(
+                new TickOffTodoItemCommand() { Id = todoItemId }
+            );
+
+            return NoContent();
+        }
+
+        [HttpGet("{todoItemId}")]
+        public async Task<IActionResult> GetItemById([FromRoute] Guid todoItemId)
+        {
+            var item = await _mediator.Send(
                 new GetTodoItemByIdQuery { Id = todoItemId }
             );
+
+            if(item == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(item);
         }
 
         [HttpGet]
-        public async Task<IEnumerable<TodoItem>> GetAllItems()
+        public async Task<IActionResult> GetAllItems()
         {
-            return await _mediator.Send(new GetTodoItemsQuery());
+            var items = await _mediator.Send(new GetTodoItemsQuery());
+
+            return Ok(items);
         }      
+
+        
     }
 }
