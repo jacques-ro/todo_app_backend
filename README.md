@@ -25,3 +25,37 @@ In order to make debugging work, proceed as follows:
 5. Open your browser, navigate to http://localhost:5000/swagger/index.html
 
 For further information, refer to the vs code debugging guide https://code.visualstudio.com/docs/containers/docker-compose
+
+# How to deploy to heroku
+
+Install the heroku CLI (not explained here)
+
+Login to heroku
+
+```bash
+heroku login
+```
+
+Login to heroku container registry
+
+```bash
+heroku container:login
+```
+
+push the app
+
+```bash
+heroku container:push -R -a <app-name>
+```
+
+release the app
+
+```bash
+heroku container:release web -a <app-name>
+```
+
+look at the output of the deployed container
+
+```bash
+heroku logs --tail -a <app-name>
+```
