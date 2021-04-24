@@ -29,6 +29,8 @@ services:
       - "5432:5432"
     networks: 
       - todo.postgres.network
+    volumes:
+      - todo.postgres.volume:/var/lib/postgresql/data
 
   backend:
     image: backend
@@ -36,6 +38,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5000:5000"
     depends_on: 
@@ -49,3 +53,4 @@ networks:
 
 volumes: 
   pgadmin4:
+  todo.postgres.volume:

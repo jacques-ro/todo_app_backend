@@ -7,9 +7,7 @@ namespace Todo.Backend.Persistence.Context
     public class TodoItemContext : DbContext
     {
         public TodoItemContext(DbContextOptions<TodoItemContext> options) : base(options)
-        {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+        {            
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
