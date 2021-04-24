@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Todo.Backend.Persistence.Configuration;
 using Todo.Backend.Persistence.Context;
 
@@ -38,7 +39,16 @@ namespace backend
                 services.AddDbContext<TodoItemContext>(options =>                    
                     options.UseSqlite(CreateSqliteInMemoryConnection())
                 );
-            } else
+            }
+            else if (_configuration.GetValue<bool>("HerokuEnvironment"))
+            {
+                services.AddDbContext<TodoItemContext>(options =>
+                    options.UseNpgsql(
+                        GetHerokuConnectionString(_configuration.GetValue<string>("DATABASE_URL"))
+                    )
+                );                
+            }
+            else
             {
                 services.AddDbContext<TodoItemContext>(options =>
                     options.UseNpgsql(_configuration.GetConnectionString("database"))                    
@@ -57,10 +67,15 @@ namespace backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        {            
+            if(_configuration.GetValue<bool>("HerokuEnvironment"))
+            {
+                logger.LogDebug("Detected that the app runs on Heroku");
+            }
             if (env.IsDevelopment())
             {
+                logger.LogDebug("Detected development environment");                
                 app.UseDeveloperExceptionPage();
             }
 
@@ -89,6 +104,25 @@ namespace backend
             }               
 
             return _connection;
+        }
+
+        private static string GetHerokuConnectionString(string herokuDatabaseUrlString)
+        {
+            var uri = new Uri(herokuDatabaseUrlString);
+
+            var db = uri.LocalPath.TrimStart('/');
+            var userInfo = uri.UserInfo.Split(':', StringSplitOptions.RemoveEmptyEntries);
+
+            return string.Join(';',
+                $"User ID={userInfo[0]}",
+                $"Password={userInfo[1]}",
+                $"Host={uri.Host}",
+                $"Port={uri.Port}",
+                $"Database={db}",
+                $"Pooling=true",
+                "SSL Mode=Require",
+                "Trust Server Certificate=True;"
+            );
         }
 
         public void Dispose() => _connection.Dispose();
