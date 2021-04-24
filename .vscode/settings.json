@@ -1,4 +1,6 @@
 {
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.enableEditorConfigSupport": true
     "docker.commands.composeUp": [
         {
             "label": "override",
