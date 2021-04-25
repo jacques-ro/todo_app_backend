@@ -1,8 +1,11 @@
+**/.config
 **/.classpath
 **/.dockerignore
 **/.env
 **/.git
 **/.gitignore
+**/.github
+**/.heroku
 **/.project
 **/.settings
 **/.toolstarget
@@ -13,6 +16,7 @@
 **/*.jfm
 **/azds.yaml
 **/bin
+**/DbScripts
 **/charts
 **/docker-compose*
 **/compose*
