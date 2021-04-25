@@ -1,6 +1,10 @@
 # todo_app_backend
 backend of a c# based todo app used as a lean learning platform
 
+# Status
+
+[![Deploy to Heroku](https://github.com/jacques-ro/todo_app_backend/actions/workflows/deploy-heroku.yml/badge.svg)](https://github.com/jacques-ro/todo_app_backend/actions/workflows/deploy-heroku.yml)
+
 # How to customize appsettings
 
 Note: the app is now containerized so the connection strings for the local environment are always the same and should not be edited.
