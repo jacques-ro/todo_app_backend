@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net5.0/backend.dll",
+            "program": "${workspaceFolder}/Todo.Backend/bin/Debug/net5.0/backend.dll",
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/Todo.Backend",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
@@ -33,7 +33,7 @@
             "request": "launch",
             "preLaunchTask": "docker-run: debug",
             "netCore": {
-                "appProject": "${workspaceFolder}/backend.csproj"
+                "appProject": "${workspaceFolder}/Todo.Backend/Backend.csproj"
             }
         },
         {
@@ -42,7 +42,7 @@
             "request": "attach",
             "platform": "netCore",
             "sourceFileMap": {
-                "/src": "${workspaceFolder}"
+                "/src": "${workspaceFolder}/Todo.Backend"
             }
         }
     ]

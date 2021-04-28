@@ -1,6 +1,6 @@
 {
     "omnisharp.enableRoslynAnalyzers": true,
-    "omnisharp.enableEditorConfigSupport": true
+    "omnisharp.enableEditorConfigSupport": true,
     "docker.commands.composeUp": [
         {
             "label": "override",
@@ -12,6 +12,5 @@
             "label": "override",
             "template": "docker-compose -f docker-compose.yml ${configurationFile} down",
         }
-    ],
-    "docker.commands.attach": null
+    ]
 }
