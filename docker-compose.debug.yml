@@ -6,8 +6,8 @@ services:
   backend:
     image: backend
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: ./Todo.Backend
+      dockerfile: Dockerfile
     ports:
       - 5000
     environment:

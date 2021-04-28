@@ -5,6 +5,10 @@ backend of a c# based todo app used as a lean learning platform
 
 [![Deploy to Heroku](https://github.com/jacques-ro/todo_app_backend/actions/workflows/deploy-heroku.yml/badge.svg)](https://github.com/jacques-ro/todo_app_backend/actions/workflows/deploy-heroku.yml)
 
+# General Notes
+
+This readme assumes you are using VS Code. Explanations may refer to VS Code plugins.
+
 # How to customize appsettings
 
 Note: the app is now containerized so the connection strings for the local environment are always the same and should not be edited.
@@ -30,7 +34,7 @@ In order to make debugging work, proceed as follows:
 
 For further information, refer to the vs code debugging guide https://code.visualstudio.com/docs/containers/docker-compose
 
-# How to deploy to heroku
+# How to manually deploy to heroku
 
 Install the heroku CLI (not explained here)
 
