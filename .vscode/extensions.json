@@ -14,7 +14,8 @@
 		"patcx.vscode-nuget-gallery",
 		"Gruntfuggly.todo-tree",
 		"wayou.vscode-todo-highlight",
-		"fernandoescolar.vscode-solution-explorer"
+		"fernandoescolar.vscode-solution-explorer",
+		"formulahendry.dotnet-test-explorer"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
