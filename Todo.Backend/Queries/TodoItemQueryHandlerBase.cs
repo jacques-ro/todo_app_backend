@@ -2,7 +2,6 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Todo.Backend.Contract.Repository;
-using Todo.Backend.Models;
 
 namespace Todo.Backend.Queries
 {

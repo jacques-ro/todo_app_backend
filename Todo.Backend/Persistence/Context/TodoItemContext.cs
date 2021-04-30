@@ -1,9 +1,8 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Todo.Backend.Persistence.Entities;
 
 namespace Todo.Backend.Persistence.Context
-{    
+{
     public class TodoItemContext : DbContext
     {
         public TodoItemContext(DbContextOptions<TodoItemContext> options) : base(options)
