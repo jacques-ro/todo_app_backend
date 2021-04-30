@@ -25,4 +25,4 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 ENV HerokuEnvironment=true
 
-CMD ASPNETCORE_URLS=http://+:$PORT dotnet backend.dll
+CMD ASPNETCORE_URLS=http://+:$PORT dotnet Todo.Backend.dll
