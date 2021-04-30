@@ -47,7 +47,7 @@ namespace Backend.Tests
             // assert
 
             Assert.NotNull(exception);
-            Assert.IsType<ArgumentException>(exception);
+            Assert.IsType<CommandArgumentException>(exception);
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace Backend.Tests
             // assert
 
             Assert.NotNull(exception);
-            Assert.IsType<ArgumentException>(exception);
+            Assert.IsType<CommandArgumentException>(exception);
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace Backend.Tests
             // act
 
             var handler = new ChangeTodoItemTitleCommandHandler(_repo, _repo);
-            var exception = await Record.ExceptionAsync(async () => await handler.Handle(new ChangeTodoItemTitleCommand { Id = itemId, Title = "My Item 2" }, CancellationToken.None));
+            var exception = await Record.ExceptionAsync(async () => await handler.Handle(new ChangeTodoItemTitleCommand { Id = itemId, Title = "" }, CancellationToken.None));
 
             // assert
 

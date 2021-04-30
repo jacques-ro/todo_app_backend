@@ -2,7 +2,6 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Todo.Backend.Commands;
 using Todo.Backend.Contract.Repository;
 
 namespace Todo.Backend.Commands
@@ -13,7 +12,7 @@ namespace Todo.Backend.Commands
         // TODO: Currently, read and write persistence as well as models are equal, so using the read model is perfectly
         //       fine for the first iteration. However, commands should NEVER use read model persistence to rehydrate the
         //       model for change actions. Later, we need dedicated rehydration logic for the write model.
-        private ITodoReadRepository _readRepository;
+        private readonly ITodoReadRepository _readRepository;
 
         public TickOffTodoItemCommandHandler(
             ITodoWriteRepository repository,

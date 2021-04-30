@@ -1,13 +1,11 @@
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Todo.Backend.Commands;
 using Todo.Backend.DTOs;
-using Todo.Backend.Models;
 using Todo.Backend.Persistence.Context;
 using Todo.Backend.Queries;
 
@@ -45,7 +43,7 @@ namespace Todo.Backend.Controllers
             CancellationToken cancellationToken
         ) 
         {
-          await _mediator.Send(new ChangeTodoItemTitleCommand { Id = todoItemId, Title = changeTitleDTO.Title });
+          await _mediator.Send(new ChangeTodoItemTitleCommand { Id = todoItemId, Title = changeTitleDTO.Title }, cancellationToken);
           return NoContent();
         }
 
@@ -56,17 +54,22 @@ namespace Todo.Backend.Controllers
         )
         {
             await _mediator.Send(
-                new TickOffTodoItemCommand() { Id = todoItemId }
+                new TickOffTodoItemCommand() { Id = todoItemId },
+                cancellationToken
             );
 
             return NoContent();
         }
 
         [HttpGet("{todoItemId}")]
-        public async Task<IActionResult> GetItemById([FromRoute] Guid todoItemId)
+        public async Task<IActionResult> GetItemById(
+            [FromRoute] Guid todoItemId,
+            CancellationToken cancellationToken
+        )
         {
             var item = await _mediator.Send(
-                new GetTodoItemByIdQuery { Id = todoItemId }
+                new GetTodoItemByIdQuery { Id = todoItemId },
+                cancellationToken
             );
 
             if(item == null)
@@ -78,18 +81,27 @@ namespace Todo.Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllItems()
+        public async Task<IActionResult> GetAllItems(
+            CancellationToken cancellationToken
+        )
         {
-            var items = await _mediator.Send(new GetTodoItemsQuery());
+            var items = await _mediator.Send(
+                new GetTodoItemsQuery(),
+                cancellationToken
+            );
 
             return Ok(items);
         }      
 
         [HttpPost("{todoItemId}/delete")]
-        public async Task<IActionResult> DeleteItemById([FromRoute] Guid todoItemId)
+        public async Task<IActionResult> DeleteItemById(
+            [FromRoute] Guid todoItemId,
+            CancellationToken cancellationToken
+        )
         {
             await _mediator.Send(
-                new DeleteTodoItemCommand() { Id = todoItemId }
+                new DeleteTodoItemCommand() { Id = todoItemId },
+                cancellationToken
             );
 
             return NoContent();

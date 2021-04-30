@@ -1,10 +1,8 @@
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Todo.Backend.Contract.Repository;
-using Todo.Backend.Persistence.Context;
+using Todo.Backend.Exceptions;
 
 namespace Todo.Backend.Commands
 {
@@ -13,7 +11,7 @@ namespace Todo.Backend.Commands
         // TODO: Currently, read and write persistence as well as models are equal, so using the read model is perfectly
         //       fine for the first iteration. However, commands should NEVER use read model persistence to rehydrate the
         //       model for change actions. Later, we need dedicated rehydration logic for the write model.
-        private ITodoReadRepository _readRepository;
+        private readonly ITodoReadRepository _readRepository;
 
         public ChangeTodoItemTitleCommandHandler(
             ITodoWriteRepository repository,
@@ -24,11 +22,14 @@ namespace Todo.Backend.Commands
 
         public override async Task<Unit> Handle(ChangeTodoItemTitleCommand request, CancellationToken cancellationToken)
         {
+            AssertValidGuid(request.Id);
+            AssertValidTitle(request.Title);
+
             var item = await _readRepository.GetItemById(request.Id, cancellationToken);
 
             if(item == null)
             {
-                throw new InvalidOperationException($"There is no todo item with id {request.Id}");
+                throw new ItemNotFoundException(request.Id);
             }
 
             item.Title = request.Title;

@@ -1,11 +1,7 @@
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Todo.Backend.Contract.Repository;
 using Todo.Backend.Models;
-using Todo.Backend.Persistence.Context;
 
 namespace Todo.Backend.Queries
 {
