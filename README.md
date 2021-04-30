@@ -3,7 +3,7 @@ backend of a c# based todo app used as a lean learning platform
 
 # Status
 
-[![Deploy to Heroku](https://github.com/jacques-ro/todo_app_backend/actions/workflows/deploy-heroku.yml/badge.svg)](https://github.com/jacques-ro/todo_app_backend/actions/workflows/deploy-heroku.yml)
+[![Unit Tests](https://github.com/jacques-ro/todo_app_backend/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/jacques-ro/todo_app_backend/actions/workflows/unit-tests.yml) [![Deploy to Heroku](https://github.com/jacques-ro/todo_app_backend/actions/workflows/deploy-heroku.yml/badge.svg)](https://github.com/jacques-ro/todo_app_backend/actions/workflows/deploy-heroku.yml)
 
 # General Notes
 
