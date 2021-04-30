@@ -1,10 +1,8 @@
-using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Todo.Backend.Contract.Repository;
 using Todo.Backend.Models;
-using Todo.Backend.Persistence.Context;
 
 namespace Todo.Backend.Commands
 {
@@ -16,6 +14,7 @@ namespace Todo.Backend.Commands
 
         public override async Task<Guid> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
         {            
+            AssertValidTitle(request.Title);            
 
             var id = Guid.NewGuid();
 
