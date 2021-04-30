@@ -30,9 +30,8 @@ jobs:
         # uses: canastro/copy-action@7ddff6fc153a2ea2cd0fb88ed9750544c051e399
         uses: canastro/copy-action@0.0.2
         with:          
-          source: ./.heroku/Dockerfile          
-          target: ./Todo.Backend/Dockerfile    
-          
+          source: ./Todo.Backend/.heroku/Dockerfile
+          target: ./Todo.Backend/Dockerfile          
       - name: Build, Push and Deploy to Heroku
         uses: jctaveras/heroku-deploy@v2.1.3
         with:
