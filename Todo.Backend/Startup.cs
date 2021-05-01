@@ -1,19 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Todo.Backend;
 using Todo.Backend.Persistence.Configuration;
 using Todo.Backend.Persistence.Context;
 
@@ -55,8 +55,13 @@ namespace backend
                 );
             }       
 
+            services.AddMvcCore();
+            services.AddApiVersioning();
+            services.AddVersionedApiExplorer();
+
             services.AddControllers();
 
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen();
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
@@ -67,7 +72,12 @@ namespace backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            ILogger<Startup> logger,
+            IApiVersionDescriptionProvider provider
+        )
         {            
             if(_configuration.GetValue<bool>("HerokuEnvironment"))
             {
@@ -82,7 +92,14 @@ namespace backend
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API");
+                foreach(var description in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint(
+                        $"/swagger/{description.GroupName}/swagger.json",
+                        $"Todo API {description.GroupName.ToUpperInvariant()}"
+                    );
+                }
+                
             });
 
             app.UseRouting();            

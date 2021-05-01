@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/backend.csproj",
+                "${workspaceFolder}/Backend.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/backend.csproj",
+                "${workspaceFolder}/Backend.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/backend.csproj",
+                "${workspaceFolder}/Backend.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -47,7 +47,7 @@
             "dockerBuild": {
                 "tag": "backend:dev",
                 "target": "base",
-                "dockerfile": "${workspaceFolder}/Dockerfile",
+                "dockerfile": "${workspaceFolder}/Todo.Backend/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
@@ -63,12 +63,12 @@
             ],
             "dockerBuild": {
                 "tag": "backend:latest",
-                "dockerfile": "${workspaceFolder}/Dockerfile",
+                "dockerfile": "${workspaceFolder}/Todo.Backend/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/backend.csproj"
+                "appProject": "${workspaceFolder}/Todo.Backend/Todo.Backend.csproj"
             }
         },
         {
@@ -79,7 +79,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/backend.csproj",
+                "appProject": "${workspaceFolder}/Todo.Backend/Todo.Backend.csproj",
                 "enableDebugging": true
             }
         },
@@ -91,7 +91,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/backend.csproj"
+                "appProject": "${workspaceFolder}/Todo.Backend/Todo.Backend.csproj"
             }
         }
     ]

@@ -12,7 +12,8 @@ using Todo.Backend.Queries;
 namespace Todo.Backend.Controllers
 {
 
-    [Route("/api/todos/")]
+    [ApiVersion("1.0")]
+    [Route("/api/v{version:apiVersion}/todos")]
     [ApiController]
     public class TodoItemController : ControllerBase
     {
