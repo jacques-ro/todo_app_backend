@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "6cf8bc76-7aa9-4c3a-8b50-720397e5186d",
+		"name": "DotNetCore TODO API V1",
+		"description": "A simple Todo API\n\nContact Support:\n Name: Jacques Roesen",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api/v1/todos",
+			"item": [
+				{
+					"name": "{todo Item Id}",
+					"item": [
+						{
+							"name": "/api/v{{version}}/todos/:todoItemId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v{{version}}/todos/:todoItemId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v{{version}}",
+										"todos",
+										":todoItemId"
+									],
+									"variable": [
+										{
+											"key": "todoItemId",
+											"value": "urn:uuid:62a5a70d-fd15-704a-abd3-99cc6a5df573",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v{{version}}/todos/:todoItemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v{{version}}",
+												"todos",
+												":todoItemId"
+											],
+											"variable": [
+												{
+													"key": "todoItemId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/v{{version}}/todos/:todoItemId/changetitle",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"dolore\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v{{version}}/todos/:todoItemId/changetitle",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v{{version}}",
+										"todos",
+										":todoItemId",
+										"changetitle"
+									],
+									"variable": [
+										{
+											"key": "todoItemId",
+											"value": "urn:uuid:62a5a70d-fd15-704a-abd3-99cc6a5df573",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"dolore\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v{{version}}/todos/:todoItemId/changetitle",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v{{version}}",
+												"todos",
+												":todoItemId",
+												"changetitle"
+											],
+											"variable": [
+												{
+													"key": "todoItemId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/v{{version}}/todos/:todoItemId/tickoff",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v{{version}}/todos/:todoItemId/tickoff",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v{{version}}",
+										"todos",
+										":todoItemId",
+										"tickoff"
+									],
+									"variable": [
+										{
+											"key": "todoItemId",
+											"value": "urn:uuid:62a5a70d-fd15-704a-abd3-99cc6a5df573",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v{{version}}/todos/:todoItemId/tickoff",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v{{version}}",
+												"todos",
+												":todoItemId",
+												"tickoff"
+											],
+											"variable": [
+												{
+													"key": "todoItemId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/v{{version}}/todos/:todoItemId/delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v{{version}}/todos/:todoItemId/delete",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v{{version}}",
+										"todos",
+										":todoItemId",
+										"delete"
+									],
+									"variable": [
+										{
+											"key": "todoItemId",
+											"value": "urn:uuid:62a5a70d-fd15-704a-abd3-99cc6a5df573",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v{{version}}/todos/:todoItemId/delete",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v{{version}}",
+												"todos",
+												":todoItemId",
+												"delete"
+											],
+											"variable": [
+												{
+													"key": "todoItemId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "/api/v{{version}}/todos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"dolore\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v{{version}}/todos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v{{version}}",
+								"todos"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"dolore\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v{{version}}/todos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v{{version}}",
+										"todos"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "/api/v{{version}}/todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v{{version}}/todos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v{{version}}",
+								"todos"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v{{version}}/todos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v{{version}}",
+										"todos"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/",
+			"type": "string"
+		},
+		{
+			"key": "version",
+			"value": "voluptate enim labore",
+			"type": "any",
+			"description": "(Required) "
+		}
+	]
+}

@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "ab461c5d-b1e0-454f-b34d-386480e62f3c",
+		"name": "DotNetCore TODO API Tests V1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "Note a new Todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Guid Returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"created_item_id\", pm.response.json());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"{{todo_item_name}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/{{versionId}}/todos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"{{versionId}}",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the title of the Todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"{{todo_item_edit_name}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/{{versionId}}/todos/:todoItemId/changetitle",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"{{versionId}}",
+								"todos",
+								":todoItemId",
+								"changetitle"
+							],
+							"variable": [
+								{
+									"key": "todoItemId",
+									"value": "{{created_item_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Result is array with at least 1 item\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"array\");",
+									"    pm.expect(jsonData[0]).to.have.keys(\"id\", \"title\", \"isCompleted\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/{{versionId}}/todos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"{{versionId}}",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get created Todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Correct item returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.keys(\"id\", \"title\", \"isCompleted\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/{{versionId}}/todos/:todoItemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"{{versionId}}",
+								"todos",
+								":todoItemId"
+							],
+							"variable": [
+								{
+									"key": "todoItemId",
+									"value": "{{created_item_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tick off the created Todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"{{todo_item_edit_name}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/{{versionId}}/todos/:todoItemId/tickoff",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"{{versionId}}",
+								"todos",
+								":todoItemId",
+								"tickoff"
+							],
+							"variable": [
+								{
+									"key": "todoItemId",
+									"value": "{{created_item_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ticked off Todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Item ticked off\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.keys(\"id\", \"title\", \"isCompleted\");",
+									"    pm.expect(jsonData.isCompleted).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/{{versionId}}/todos/:todoItemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"{{versionId}}",
+								"todos",
+								":todoItemId"
+							],
+							"variable": [
+								{
+									"key": "todoItemId",
+									"value": "{{created_item_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/{{versionId}}/todos/:todoItemId/delete",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"{{versionId}}",
+								"todos",
+								":todoItemId",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "todoItemId",
+									"value": "{{created_item_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get deleted Todo, expect 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/{{versionId}}/todos/:todoItemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"{{versionId}}",
+								"todos",
+								":todoItemId"
+							],
+							"variable": [
+								{
+									"key": "todoItemId",
+									"value": "{{created_item_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://jr-todo-app.herokuapp.com"
+		},
+		{
+			"key": "todo_item_name",
+			"value": "My Todo Item"
+		},
+		{
+			"key": "created_item_id",
+			"value": ""
+		},
+		{
+			"key": "todo_item_edit_name",
+			"value": "My Edited Item Title"
+		},
+		{
+			"key": "versionId",
+			"value": "v1"
+		}
+	]
+}
