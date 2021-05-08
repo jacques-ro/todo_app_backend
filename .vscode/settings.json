@@ -12,5 +12,7 @@
             "label": "override",
             "template": "docker-compose -f docker-compose.yml ${configurationFile} down",
         }
-    ]
+    ],
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true
 }

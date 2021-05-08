@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Todo.Backend.Commands;
 using Todo.Backend.DTOs;
@@ -15,10 +16,11 @@ namespace Todo.Backend.Controllers
     [ApiVersion("1.0")]
     [Route("/api/v{version:apiVersion}/todos")]
     [ApiController]
+    [Authorize]
     public class TodoItemController : ControllerBase
     {
-        private readonly IMediator _mediator;      
-        private readonly TodoItemContext _todoItemContext;  
+        private readonly IMediator _mediator;
+        private readonly TodoItemContext _todoItemContext;
 
         public TodoItemController(IMediator mediator, TodoItemContext todoItemContext)
         {
@@ -31,18 +33,18 @@ namespace Todo.Backend.Controllers
             [FromBody] CreateTodoItemDTO createItemDTO,
             CancellationToken cancellationToken
         )
-        {            
+        {
             var itemId = await _mediator.Send(new CreateTodoItemCommand { Title = createItemDTO.Title });
 
             return CreatedAtAction(nameof(GetItemById), new { todoItemId = itemId }, itemId);
         }
-    
+
         [HttpPost("{todoItemId}/changetitle")]
         public async Task<IActionResult> ChangeTodoItemTitle(
             [FromRoute] Guid todoItemId,
             [FromBody] ChangeTodoItemTitleDTO changeTitleDTO,
             CancellationToken cancellationToken
-        ) 
+        )
         {
           await _mediator.Send(new ChangeTodoItemTitleCommand { Id = todoItemId, Title = changeTitleDTO.Title }, cancellationToken);
           return NoContent();
@@ -92,7 +94,7 @@ namespace Todo.Backend.Controllers
             );
 
             return Ok(items);
-        }      
+        }
 
         [HttpPost("{todoItemId}/delete")]
         public async Task<IActionResult> DeleteItemById(
@@ -106,6 +108,6 @@ namespace Todo.Backend.Controllers
             );
 
             return NoContent();
-        }        
+        }
     }
 }

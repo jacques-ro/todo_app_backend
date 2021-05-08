@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Todo.Backend;
+using Todo.Backend.Identity;
 using Todo.Backend.Persistence.Configuration;
 using Todo.Backend.Persistence.Context;
 
@@ -36,7 +37,7 @@ namespace backend
         {
             if(_configuration.GetValue<bool>("UseSqliteInMemoryDatabase"))
             {
-                services.AddDbContext<TodoItemContext>(options =>                    
+                services.AddDbContext<TodoItemContext>(options =>
                     options.UseSqlite(CreateSqliteInMemoryConnection())
                 );
             }
@@ -46,14 +47,16 @@ namespace backend
                     options.UseNpgsql(
                         GetHerokuConnectionString(_configuration.GetValue<string>("DATABASE_URL"))
                     )
-                );                
+                );
             }
             else
             {
                 services.AddDbContext<TodoItemContext>(options =>
-                    options.UseNpgsql(_configuration.GetConnectionString("database"))                    
+                    options.UseNpgsql(_configuration.GetConnectionString("database"))
                 );
-            }       
+            }
+
+            services.AddAndConfigureIdentityServer();
 
             services.AddMvcCore();
             services.AddApiVersioning();
@@ -78,16 +81,18 @@ namespace backend
             ILogger<Startup> logger,
             IApiVersionDescriptionProvider provider
         )
-        {            
+        {
             if(_configuration.GetValue<bool>("HerokuEnvironment"))
             {
                 logger.LogDebug("Detected that the app runs on Heroku");
             }
             if (env.IsDevelopment())
             {
-                logger.LogDebug("Detected development environment");                
+                logger.LogDebug("Detected development environment");
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseIdentityServer();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -99,10 +104,13 @@ namespace backend
                         $"Todo API {description.GroupName.ToUpperInvariant()}"
                     );
                 }
-                
+
             });
 
-            app.UseRouting();            
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -118,7 +126,7 @@ namespace backend
 
                 connection.Open();
                 _connection = connection;
-            }               
+            }
 
             return _connection;
         }

@@ -13,9 +13,22 @@ This readme assumes you are using VS Code. Explanations may refer to VS Code plu
 
 Note: the app is now containerized so the connection strings for the local environment are always the same and should not be edited.
 
-Copy the original appsettings.Development.json to a new appsettings.user.json. Don't push your `appsettings.user.json` to the repository.
-
 # How to run the containerized environment
+
+## Prepare identity server environment variables
+
+There are now two settings to be set for the identityserver middleware.
+
+Create a new environment file for docker-compose named `user.env` next to the compose files.
+
+Add the following two lines and replace both values according to your environment. The JWT_BEARER_AUTHORITY must match the domain endpoint of the app.
+
+```
+CLIENT_SECRET=SET_YOUR_SECRET_HERE
+JWT_BEARER_AUTHORITY=http://localhost:5000
+```
+
+## Run the app
 
 1. Right click on docker-compose.yml and choose `Compose Up`
 2. Open your browser, navigate to http://localhost:5000/swagger/index.html

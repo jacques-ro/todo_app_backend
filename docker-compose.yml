@@ -4,17 +4,17 @@ version: '3.4'
 
 services:
 
-  pgadmin: 
+  pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4
-    environment: 
+    environment:
       - PGADMIN_DEFAULT_EMAIL=local@admin.de
       - PGADMIN_DEFAULT_PASSWORD=7UNSilS9Nvgdk0G6AEg0
       - PGADMIN_DISABLE_POSTFIX=true
       - PGADMIN_LISTEN_PORT=5050
     volumes:
-      - pgadmin4:/var/lib/pgadmin 
-    ports: 
+      - pgadmin4:/var/lib/pgadmin
+    ports:
       - "8080:5050"
     networks:
       - todo.postgres.network
@@ -27,7 +27,7 @@ services:
       POSTGRES_PASSWORD: SqlAdmin100
     ports:
       - "5432:5432"
-    networks: 
+    networks:
       - todo.postgres.network
     volumes:
       - todo.postgres.volume:/var/lib/postgresql/data
@@ -40,17 +40,19 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    env_file:
+      - user.env
     ports:
       - "5000:5000"
-    depends_on: 
+    depends_on:
       - db
     networks:
       - todo.backend.network
       - todo.postgres.network
-networks: 
-  todo.backend.network:    
+networks:
+  todo.backend.network:
   todo.postgres.network:
 
-volumes: 
+volumes:
   pgadmin4:
   todo.postgres.volume:
